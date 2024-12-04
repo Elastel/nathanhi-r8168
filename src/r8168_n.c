@@ -25946,6 +25946,12 @@ rtl8168_setup_mqs_reg(struct rtl8168_private *tp)
 }
 
 static void
+rtl8168_led_configuration(struct rtl8168_private *tp)
+{
+        RTL_W16(tp, CustomLED, 0x284);
+}
+
+static void
 rtl8168_init_software_variable(struct net_device *dev)
 {
         struct rtl8168_private *tp = netdev_priv(dev);
@@ -26640,6 +26646,7 @@ err1:
         if (tp->InitRxDescType == RX_DESC_RING_TYPE_2)
                 tp->RxDescLength = RX_DESC_LEN_TYPE_2;
 
+        rtl8168_led_configuration(tp);
         tp->NicCustLedValue = RTL_R16(tp, CustomLED);
 
         rtl8168_get_hw_wol(dev);
